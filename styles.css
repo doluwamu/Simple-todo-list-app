@@ -79,20 +79,10 @@ button {
   outline: none;
 }
 
-.delete-todo,
-.todo-btn-update {
+.delete-todo {
   color: #fff;
   padding: 2px 4px;
   border-radius: 2px !important;
-}
-
-.todo-btn-update {
-  background: blue;
-  color: #fff;
-}
-
-.todo-btn-update:hover {
-  background: darkblue;
 }
 
 .delete-todo {
@@ -103,12 +93,4 @@ button {
 
 .delete-todo:hover {
   background-color: darkred;
-}
-
-.update-input {
-  outline: none;
-}
-
-.update__section {
-  display: none;
 }

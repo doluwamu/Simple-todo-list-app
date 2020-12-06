@@ -1,7 +1,7 @@
 const todoInput = document.querySelector(".todo-input");
 const todoPostButton = document.querySelector(".todo-btn-post");
 const todoContents = document.querySelector(".todo__contents");
-const todoContent = document.querySelector(".todo__content");
+const todoContent = document.getElementsByClassName("todo__content");
 const todoForm = document.querySelector(".todo__form");
 
 todoPostButton.addEventListener("click", () => postTodo());
@@ -13,16 +13,16 @@ const submit = (e) => {
 
 todoForm.addEventListener("submit", submit);
 
-const postTodo = () => {
+let t = "";
+
+const todoFunc = () => {
   if (todoInput && todoInput.value !== "") {
+    t = todoInput.value;
     let todo = document.createElement("p");
     todo.classList.add("todo__content");
     let todoItem = `
-    <p class='todo__value'>${todoInput.value}</p>
-    <button class='delete-todo' onclick='deleteTodo(event)'>Delete</button> 
-    <div class='update__section'>
-      <input type="text" class='update-input' /> 
-    </div>
+    <p class='todo__value' onclick='editTodo(event)'>${t}</p>
+    <button class='delete-todo' onclick='deleteTodo(event)'>Delete</button>
     <hr />`;
     todo.innerHTML = todoItem;
     todoContents.append(todo);
@@ -31,28 +31,28 @@ const postTodo = () => {
   }
 };
 
+const postTodo = () => {
+  todoFunc();
+};
+
 const deleteTodo = (e) => {
   const button = e.target;
   const todoToDelete = button.parentElement;
   todoToDelete.remove();
 };
 
-// const editTodo = (e) => {
-//   const clicked = e.target;
-//   const updateSection = document.querySelector(".update__section");
-//   const updateInput = document.querySelector(".update-input");
-//   updateSection.style.display = "block";
-//   updateInput.value = clicked.innerHTML;
-// };
-
-// const updateTodo = () => {
-//   const updateSection = document.querySelector(".update__section");
-//   const updateInput = document.querySelector(".update-input");
-//   const todoValue = document.querySelector(".todo__value");
-//   todoValue.innerHTML = updateInput.value;
-//   updateSection.style.display = "none";
-// };
-
+const editTodo = (event) => {
+  const todos = event.target.innerHTML;
+  const val = document.getElementsByClassName("todo__value");
+  const valArr = [...val];
+  let a = 0;
+  valArr.map(() => {
+    a = valArr.findIndex((vr) => vr.innerHTML === todos);
+  });
+  const q = val[a].innerHTML;
+  todoInput.value = q;
+  todoContent[a].remove();
+};
 const clearInput = () => {
   if (todoInput && todoInput.value !== "") {
     todoInput.value = "";
